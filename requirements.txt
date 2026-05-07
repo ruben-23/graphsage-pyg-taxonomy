@@ -1,0 +1,23 @@
+# Core graph learning
+torch>=2.1.0
+torch-geometric>=2.4.0
+
+# Neo4j driver
+neo4j>=5.14.0
+
+# Scientific computing
+numpy>=1.24.0
+scikit-learn>=1.3.0
+scipy>=1.11.0
+
+# Visualisation
+matplotlib>=3.7.0
+
+# Optional – UMAP (if you want the UMAP plot)
+umap-learn>=0.5.4
+
+# HTTP (for Ollama)
+requests>=2.31.0
+
+# Misc
+tqdm>=4.66.0
