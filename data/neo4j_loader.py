@@ -242,7 +242,7 @@
 #             # batch in chunks of 500
 #             for i in range(0, len(rows), 500):
 #                 session.run(cypher, rows=rows[i : i + 500])
-#         log.info("Wrote %d %s embeddings → Neo4j", len(rows), node_type)
+#         log.info("Wrote %d %s embeddings -> Neo4j", len(rows), node_type)
 
 
 # v1
@@ -279,7 +279,7 @@ def _run(session, cypher: str, **params) -> List[dict]:
 _NODE_QUERIES: Dict[str, str] = {
     "Student": """
         MATCH (s:Student)
-        RETURN s.student_id          AS student_id,
+        RETURN trim(s.student_id)    AS student_id,
                s.name                AS name,
                s.major               AS major,
                s.graduation_year     AS graduation_year,
@@ -288,9 +288,9 @@ _NODE_QUERIES: Dict[str, str] = {
     """,
     "Job": """
         MATCH (j:Job)
-        RETURN j.job_id            AS job_id,
+        RETURN trim(j.job_id)      AS job_id,
                j.title             AS title,
-               j.description       AS description,
+               j.clean_description       AS description,
                j.experience_level  AS experience_level,
                j.job_type          AS job_type,
                j.salary            AS salary,
@@ -300,7 +300,7 @@ _NODE_QUERIES: Dict[str, str] = {
     """,
     "Company": """
         MATCH (c:Company)
-        RETURN c.company_id  AS company_id,
+        RETURN trim(c.company_id)  AS company_id,
                c.name        AS name,
                c.industry    AS industry,
                c.location    AS location,
@@ -309,7 +309,7 @@ _NODE_QUERIES: Dict[str, str] = {
     # ── Skills (one query per layer) ──────────────────────────────────────────
     "Skill_L1": """
         MATCH (sc:Skill {layer: 1})
-        RETURN sc.skill_id AS skill_id,
+        RETURN trim(sc.skill_id) AS skill_id,
                sc.name     AS name,
                sc.layer    AS layer,
                sc.type     AS type,
@@ -320,7 +320,7 @@ _NODE_QUERIES: Dict[str, str] = {
     "Skill_L2": """
         MATCH (sg:Skill {layer: 2})
         OPTIONAL MATCH (sg)-[:SUBCLASS_OF]->(sc:Skill {layer: 1})
-        RETURN sg.skill_id AS skill_id,
+        RETURN trim(sg.skill_id) AS skill_id,
                sg.name     AS name,
                sg.layer    AS layer,
                sg.type     AS type,
@@ -331,7 +331,7 @@ _NODE_QUERIES: Dict[str, str] = {
     "Skill_L3": """
         MATCH (sk:Skill {layer: 3})
         OPTIONAL MATCH (sk)-[:SUBCLASS_OF]->(sg:Skill {layer: 2})-[:SUBCLASS_OF]->(sc:Skill {layer: 1})
-        RETURN sk.skill_id AS skill_id,
+        RETURN trim(sk.skill_id) AS skill_id,
                sk.name     AS name,
                sk.layer    AS layer,
                sk.type     AS type,
@@ -342,7 +342,7 @@ _NODE_QUERIES: Dict[str, str] = {
     # ── Occupations (one query per layer) ─────────────────────────────────────
     "Occupation_L1": """
         MATCH (o:Occupation {layer: 1})
-        RETURN o.occupation_id AS occupation_id,
+        RETURN trim(o.occupation_id) AS occupation_id,
                o.name          AS name,
                o.layer         AS layer,
                o.type          AS type,
@@ -353,7 +353,7 @@ _NODE_QUERIES: Dict[str, str] = {
     "Occupation_L2": """
         MATCH (o:Occupation {layer: 2})
         OPTIONAL MATCH (o)-[:SUBCLASS_OF*1..]->(gp:Occupation {layer: 1})
-        RETURN o.occupation_id AS occupation_id,
+        RETURN trim(o.occupation_id) AS occupation_id,
                o.name          AS name,
                o.layer         AS layer,
                o.type          AS type,
@@ -365,7 +365,7 @@ _NODE_QUERIES: Dict[str, str] = {
         MATCH (o:Occupation {layer: 3})
         OPTIONAL MATCH (o)-[:SUBCLASS_OF*1..]->(p:Occupation {layer: 2})
         OPTIONAL MATCH (p)-[:SUBCLASS_OF*1..]->(gp:Occupation {layer: 1})
-        RETURN o.occupation_id AS occupation_id,
+        RETURN trim(o.occupation_id) AS occupation_id,
                o.name          AS name,
                o.layer         AS layer,
                o.type          AS type,
@@ -375,20 +375,20 @@ _NODE_QUERIES: Dict[str, str] = {
     """,
     "Project": """
         MATCH (p:Project)
-        RETURN p.project_id   AS project_id,
+        RETURN trim(p.project_id)   AS project_id,
                p.title        AS title,
                p.description  AS description
     """,
     "Course": """
         MATCH (c:Course)
-        RETURN c.course_id   AS course_id,
+        RETURN trim(c.course_id)   AS course_id,
                c.title       AS title,
                c.description AS description,
                c.provider    AS provider
     """,
     "Diploma": """
         MATCH (d:Diploma)
-        RETURN d.diploma_id  AS diploma_id,
+        RETURN trim(d.diploma_id)  AS diploma_id,
                d.title       AS title,
                d.description AS description,
                d.issuer      AS issuer
@@ -549,7 +549,7 @@ class Neo4jLoader:
         label = node_type
         cypher = (
             f"UNWIND $rows AS row "
-            f"MATCH (n:{label} {{{id_field}: row.id}}) "
+            f"MATCH (n:{label}) WHERE trim(n.{id_field}) = row.id "
             f"SET n.{property_name} = row.embedding"
         )
         rows = [{"id": nid, "embedding": emb} for nid, emb in embeddings.items()]
@@ -557,4 +557,4 @@ class Neo4jLoader:
             # batch in chunks of 500
             for i in range(0, len(rows), 500):
                 session.run(cypher, rows=rows[i : i + 500])
-        log.info("Wrote %d %s embeddings → Neo4j", len(rows), node_type)
+        log.info("Wrote %d %s embeddings -> Neo4j", len(rows), node_type)

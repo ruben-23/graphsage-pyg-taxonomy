@@ -60,7 +60,7 @@
 #         """
 #         data = HeteroData()
 
-#         # Build per-type id → integer index maps. This is done here, not in
+#         # Build per-type id -> integer index maps. This is done here, not in
 #         # __init__, to guarantee the maps are built from the exact same `nodes`
 #         # dict that was used to create the `feature_matrices`.
 #         id_maps: Dict[str, Dict[str, int]] = {}
@@ -78,7 +78,7 @@
 #                 feat = feature_matrices[ntype]
 #                 data[ntype].x = feat
 #                 data[ntype].num_nodes = feat.size(0)
-#                 log.info("%s  →  x shape %s", ntype, tuple(feat.shape))
+#                 log.info("%s  ->  x shape %s", ntype, tuple(feat.shape))
 #             else:
 #                 # This case should not happen with the current feature pipeline,
 #                 # but as a safeguard, set num_nodes from the raw node list.
@@ -118,7 +118,7 @@
 #             triple = (src_type, rel_type, dst_type)
 #             data[triple].edge_index = edge_index
 #             log.info(
-#                 "Edge %s → %d edges [%s→%s]",
+#                 "Edge %s -> %d edges [%s->%s]",
 #                 rel_type, len(srcs), src_type, dst_type,
 #             )
 
@@ -202,7 +202,7 @@ class GraphBuilder:
         """
         data = HeteroData()
 
-        # Build per-type id → integer index maps. This is done here, not in
+        # Build per-type id -> integer index maps. This is done here, not in
         # __init__, to guarantee the maps are built from the exact same `nodes`
         # dict that was used to create the `feature_matrices`.
         id_maps: Dict[str, Dict[str, int]] = {}
@@ -220,7 +220,7 @@ class GraphBuilder:
                 feat = feature_matrices[ntype]
                 data[ntype].x = feat
                 data[ntype].num_nodes = feat.size(0)
-                log.info("%s  →  x shape %s", ntype, tuple(feat.shape))
+                log.info("%s  ->  x shape %s", ntype, tuple(feat.shape))
             else:
                 # This case should not happen with the current feature pipeline,
                 # but as a safeguard, set num_nodes from the raw node list.
@@ -260,7 +260,7 @@ class GraphBuilder:
             triple = (src_type, rel_type, dst_type)
             data[triple].edge_index = edge_index
             log.info(
-                "Edge %s → %d edges [%s→%s]",
+                "Edge %s -> %d edges [%s->%s]",
                 rel_type, len(srcs), src_type, dst_type,
             )
 
