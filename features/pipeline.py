@@ -112,12 +112,18 @@ class FeaturePipeline:
             log.info("  Embedding %d %s nodes …", len(txts), ntype)
             vecs = self.embedder.embed(txts)
             arr = np.array(vecs, dtype=np.float32)
-            # safety: clip / pad to expected dim
+            # Safety: pad or clip to the target EMBEDDING_DIM.
+            # This handles both truncation (e.g. 768 -> 128) and padding
+            # if the embedder returns a shorter vector on error.
             if arr.shape[1] != EMBEDDING_DIM:
-                log.warning(
-                    "%s embeddings dim=%d, expected %d – padding",
-                    ntype, arr.shape[1], EMBEDDING_DIM,
-                )
+                if arr.shape[1] > EMBEDDING_DIM:
+                    log.info(
+                        "  Clipping %s embeddings from %d to %d dimensions.",
+                        ntype, arr.shape[1], EMBEDDING_DIM)
+                else:
+                    log.warning(
+                        "  Padding %s embeddings from %d to %d dimensions.",
+                        ntype, arr.shape[1], EMBEDDING_DIM)
                 arr = _pad_or_clip(arr, EMBEDDING_DIM)
             arrays[ntype] = arr
             log.info("  %s semantic shape: %s", ntype, arr.shape)

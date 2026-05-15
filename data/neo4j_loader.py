@@ -298,14 +298,14 @@ _NODE_QUERIES: Dict[str, str] = {
                j.remote            AS remote,
                j.location          AS location
     """,
-    "Company": """
-        MATCH (c:Company)
-        RETURN trim(c.company_id)  AS company_id,
-               c.name        AS name,
-               c.industry    AS industry,
-               c.location    AS location,
-               c.size        AS size
-    """,
+    # "Company": """
+    #     MATCH (c:Company)
+    #     RETURN trim(c.company_id)  AS company_id,
+    #            c.name        AS name,
+    #            c.industry    AS industry,
+    #            c.location    AS location,
+    #            c.size        AS size
+    # """,
     # ── Skills (one query per layer) ──────────────────────────────────────────
     "Skill_L1": """
         MATCH (sc:Skill {layer: 1})
@@ -319,59 +319,66 @@ _NODE_QUERIES: Dict[str, str] = {
     """,
     "Skill_L2": """
         MATCH (sg:Skill {layer: 2})
+        // Aggregate parent paths to prevent duplicates if a group belongs to multiple categories
         OPTIONAL MATCH (sg)-[:SUBCLASS_OF]->(sc:Skill {layer: 1})
+        WITH sg, collect(sc.name) AS category_names
         RETURN trim(sg.skill_id) AS skill_id,
                sg.name     AS name,
                sg.layer    AS layer,
                sg.type     AS type,
                sg.parent   AS parent,
                null        AS group_name,
-               sc.name     AS category_name
+               category_names[0] AS category_name
     """,
     "Skill_L3": """
         MATCH (sk:Skill {layer: 3})
+        // Aggregate parent paths to prevent duplicates from multiple hierarchy paths
         OPTIONAL MATCH (sk)-[:SUBCLASS_OF]->(sg:Skill {layer: 2})-[:SUBCLASS_OF]->(sc:Skill {layer: 1})
+        WITH sk, collect(sg.name) AS group_names, collect(sc.name) AS category_names
         RETURN trim(sk.skill_id) AS skill_id,
                sk.name     AS name,
                sk.layer    AS layer,
                sk.type     AS type,
                sk.parent   AS parent,
-               sg.name     AS group_name,
-               sc.name     AS category_name
+               group_names[0] AS group_name,
+               category_names[0] AS category_name
     """,
     # ── Occupations (one query per layer) ─────────────────────────────────────
     "Occupation_L1": """
         MATCH (o:Occupation {layer: 1})
         RETURN trim(o.occupation_id) AS occupation_id,
-               o.name          AS name,
-               o.layer         AS layer,
-               o.type          AS type,
-               null            AS parent,
-               null            AS parent_name,
-               null            AS grandparent_name
+               o.name AS name,
+               o.layer AS layer,
+               o.type AS type,
+               null AS parent,
+               null AS parent_name,
+               null AS grandparent_name
     """,
     "Occupation_L2": """
         MATCH (o:Occupation {layer: 2})
-        OPTIONAL MATCH (o)-[:SUBCLASS_OF*1..]->(gp:Occupation {layer: 1})
+        // Aggregate parent paths to prevent duplicates
+        OPTIONAL MATCH (o)-[:SUBCLASS_OF]->(gp:Occupation {layer: 1})
+        WITH o, collect(gp.name) AS grandparent_names
         RETURN trim(o.occupation_id) AS occupation_id,
-               o.name          AS name,
-               o.layer         AS layer,
-               o.type          AS type,
-               o.parent        AS parent,
-               null            AS parent_name,
-               gp.name         AS grandparent_name
+               o.name AS name,
+               o.layer AS layer,
+               o.type AS type,
+               o.parent AS parent,
+               null AS parent_name,
+               grandparent_names[0] AS grandparent_name
     """,
     "Occupation_L3": """
         MATCH (o:Occupation {layer: 3})
-        OPTIONAL MATCH (o)-[:SUBCLASS_OF*1..]->(p:Occupation {layer: 2})
-        OPTIONAL MATCH (p)-[:SUBCLASS_OF*1..]->(gp:Occupation {layer: 1})
+        // Aggregate parent paths to prevent duplicates from multiple hierarchy paths
+        OPTIONAL MATCH (o)-[:SUBCLASS_OF]->(p:Occupation {layer: 2})-[:SUBCLASS_OF]->(gp:Occupation {layer: 1})
+        WITH o, collect(p.name) AS parent_names, collect(gp.name) AS grandparent_names
         RETURN trim(o.occupation_id) AS occupation_id,
-               o.name          AS name,
-               o.layer         AS layer,
-               o.type          AS type,
-               o.parent        AS parent,
-               p.name          AS parent_name,
-               gp.name         AS grandparent_name
+               o.name AS name,
+               o.layer AS layer,
+               o.type AS type,
+               o.parent AS parent,
+               parent_names[0] AS parent_name,
+               grandparent_names[0] AS grandparent_name
     """,
     "Project": """
         MATCH (p:Project)
@@ -415,13 +422,13 @@ _REL_QUERIES: Dict[str, Tuple[str, str, str]] = {
                r.min_proficiency AS level, r.importance AS importance
         """,
     ),
-    "POSTS": (
-        "Company", "Job",
-        """
-        MATCH (c:Company)-[:POSTS]->(j:Job)
-        RETURN c.company_id AS src, j.job_id AS dst
-        """,
-    ),
+    # "POSTS": (
+    #     "Company", "Job",
+    #     """
+    #     MATCH (c:Company)-[:POSTS]->(j:Job)
+    #     RETURN c.company_id AS src, j.job_id AS dst
+    #     """,
+    # ),
     "CREATED": (
         "Student", "Project",
         """
@@ -450,13 +457,13 @@ _REL_QUERIES: Dict[str, Tuple[str, str, str]] = {
         RETURN s.student_id AS src, d.diploma_id AS dst
         """,
     ),
-    # "COVERS": (
-    #     "Course", "Skill_L3",
-    #     """
-    #     MATCH (c:Course)-[:COVERS]->(sk:Skill {layer: 3})
-    #     RETURN c.course_id AS src, sk.skill_id AS dst
-    #     """,
-    # ),
+    "COVERS": (
+        "Course", "Skill_L3",
+        """
+        MATCH (c:Course)-[:COVERS]->(sk:Skill {layer: 3})
+        RETURN c.course_id AS src, sk.skill_id AS dst
+        """,
+    ),
     "CERTIFIES": (
         "Diploma", "Skill_L3",
         """
@@ -546,7 +553,17 @@ class Neo4jLoader:
         property_name: str = "graphsage_embedding",
     ) -> None:
         """Batch-write embeddings back to Neo4j."""
-        label = node_type
+        # label = node_type
+        
+        # Map hierarchical PyG node types back to their base Neo4j label.
+        # e.g., "Skill_L1", "Skill_L2", "Skill_L3" all use the "Skill" label in Neo4j.
+        if node_type.startswith("Skill_"):
+            label = "Skill"
+        elif node_type.startswith("Occupation_"):
+            label = "Occupation"
+        else:
+            label = node_type
+
         cypher = (
             f"UNWIND $rows AS row "
             f"MATCH (n:{label}) WHERE trim(n.{id_field}) = row.id "

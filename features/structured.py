@@ -292,7 +292,7 @@ def _zero_structured(rows: List[Dict[str, Any]], dim: int) -> np.ndarray:
 _BUILDERS = {
     "Student":      _student_structured,
     "Job":          _job_structured,
-    "Company":      _company_structured,
+    # "Company":      _company_structured,
     "Skill_L1":     _skill_structured,
     "Skill_L2":     _skill_structured,
     "Skill_L3":     _skill_structured,

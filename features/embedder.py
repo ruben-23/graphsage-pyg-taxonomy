@@ -14,11 +14,11 @@ from typing import List
 
 import requests
 
-from config.settings import OLLAMA_BASE_URL, OLLAMA_MODEL, EMBEDDING_DIM
+from config.settings import OLLAMA_BASE_URL, OLLAMA_MODEL, RAW_EMBEDDING_DIM
 
 log = logging.getLogger(__name__)
 
-_EMBED_URL = f"{OLLAMA_BASE_URL}/api/embeddings"
+_EMBED_URL = f"{OLLAMA_BASE_URL}/api/embed"
 
 
 class OllamaEmbedder:
@@ -116,7 +116,7 @@ class OllamaEmbedder:
         self.retry_delay = retry_delay
         self.max_retries = max_retries
         self.max_workers = max_workers
-        self._dim = EMBEDDING_DIM
+        self._dim = RAW_EMBEDDING_DIM
         
         # Keep TCP connections alive between requests
         self.session = requests.Session()
@@ -156,14 +156,25 @@ class OllamaEmbedder:
                 # Use the session instead of requests.post
                 resp = self.session.post(
                     _EMBED_URL,
-                    json={"model": self.model, "prompt": text},
-                    timeout=30,
+                    # json={"model": self.model, "prompt": text},
+                    json={
+                        "model": self.model,
+                        "input": text,
+                        "dimensions": self._dim
+                    },
+                    timeout=60,
                 )
                 resp.raise_for_status()
-                vec = resp.json().get("embedding", [])
+                vec = resp.json().get("embeddings", [])
                 if vec:
-                    return vec
-                log.warning("Empty embedding returned for text snippet")
+                    # The response should be a flat list of floats. Some model/API
+                    # versions might incorrectly wrap it, e.g., [[...]]. This
+                    # check handles that case by unwrapping it.
+                    if len(vec) > 0 and isinstance(vec[0], list):
+                        return vec[0]  # We got [[...]], return the inner list.
+                    return vec  # We got [...] as expected.
+                
+                log.warning("Empty or invalid embedding format for text snippet")
                 return [0.0] * self._dim
             except Exception as exc:
                 log.warning(

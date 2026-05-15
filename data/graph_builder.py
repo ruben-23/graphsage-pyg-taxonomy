@@ -161,7 +161,7 @@ log = logging.getLogger(__name__)
 NODE_ID_FIELDS: Dict[str, str] = {
     "Student":      "student_id",
     "Job":          "job_id",
-    "Company":      "company_id",
+    # "Company":      "company_id",
     "Skill_L1":     "skill_id",
     "Skill_L2":     "skill_id",
     "Skill_L3":     "skill_id",

@@ -337,7 +337,7 @@ def _diploma_text(r: dict) -> str:
 _TEXT_BUILDERS = {
     "Student":      _student_text,
     "Job":          _job_text,
-    "Company":      _company_text,
+    # "Company":      _company_text,
     "Skill_L1":     _skill_l1_text,
     "Skill_L2":     _skill_l2_text,
     "Skill_L3":     _skill_text,
