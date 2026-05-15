@@ -87,7 +87,7 @@ def plot_tsne(
         "Job":        "#DC2626",
         "Skill":      "#16A34A",
         "Occupation": "#9333EA",
-        "Company":    "#EA580C",
+        # "Company":    "#EA580C",
         "Project":    "#0891B2",
         "Course":     "#CA8A04",
         "Diploma":    "#DB2777",

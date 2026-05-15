@@ -1,186 +1,169 @@
-2026-05-07 21:43:05,096  INFO      __main__  === Loading data from Neo4j ===
-2026-05-07 21:43:05,097  INFO      data.neo4j_loader  Connected to Neo4j at bolt://localhost:7687
-2026-05-07 21:43:05,156  INFO      data.neo4j_loader  Loaded 9 Student nodes
-2026-05-07 21:43:05,160  INFO      data.neo4j_loader  Loaded 20 Job nodes
-2026-05-07 21:43:05,165  INFO      data.neo4j_loader  Loaded 20 Company nodes
-2026-05-07 21:43:05,169  INFO      data.neo4j_loader  Loaded 2 Skill_L1 nodes
-2026-05-07 21:43:05,173  INFO      data.neo4j_loader  Loaded 7 Skill_L2 nodes
-2026-05-07 21:43:05,194  INFO      data.neo4j_loader  Loaded 406 Skill_L3 nodes
-2026-05-07 21:43:05,197  INFO      data.neo4j_loader  Loaded 3 Occupation_L1 nodes
-2026-05-07 21:43:05,201  INFO      data.neo4j_loader  Loaded 8 Occupation_L2 nodes
-2026-05-07 21:43:05,210  INFO      data.neo4j_loader  Loaded 40 Occupation_L3 nodes
-2026-05-07 21:43:05,215  INFO      data.neo4j_loader  Loaded 9 Project nodes
-2026-05-07 21:43:05,219  INFO      data.neo4j_loader  Loaded 9 Course nodes
-2026-05-07 21:43:05,223  INFO      data.neo4j_loader  Loaded 9 Diploma nodes
-2026-05-07 21:43:05,228  INFO      data.neo4j_loader  Loaded 24 KNOWS edges
-2026-05-07 21:43:05,251  INFO      data.neo4j_loader  Loaded 589 REQUIRES edges
-2026-05-07 21:43:05,256  INFO      data.neo4j_loader  Loaded 20 POSTS edges
-2026-05-07 21:43:05,260  INFO      data.neo4j_loader  Loaded 9 CREATED edges
-2026-05-07 21:43:05,264  INFO      data.neo4j_loader  Loaded 23 BUILT_WITH edges
-2026-05-07 21:43:05,268  INFO      data.neo4j_loader  Loaded 9 COMPLETED edges
-2026-05-07 21:43:05,272  INFO      data.neo4j_loader  Loaded 9 EARNED edges
-2026-05-07 21:43:05,276  INFO      data.neo4j_loader  Loaded 13 CERTIFIES edges
-2026-05-07 21:43:05,290  INFO      data.neo4j_loader  Loaded 406 SKILL_SUBCLASS_L3_L2 edges
-2026-05-07 21:43:05,295  INFO      data.neo4j_loader  Loaded 7 SKILL_SUBCLASS_L2_L1 edges
-2026-05-07 21:43:05,299  INFO      data.neo4j_loader  Loaded 40 OCC_SUBCLASS_L3_L2 edges
-2026-05-07 21:43:05,303  INFO      data.neo4j_loader  Loaded 8 OCC_SUBCLASS_L2_L1 edges
-2026-05-07 21:43:05,303  INFO      __main__  === Building feature tensors ===
-2026-05-07 21:43:05,304  INFO      features.pipeline  === Building semantic texts ===
-2026-05-07 21:43:05,304  INFO      features.semantic  Built 9 semantic texts for Student. Sample: Student named Alex Mercer. studying Computer Science. Bachelor of Science degree
-2026-05-07 21:43:05,304  INFO      features.semantic  Built 20 semantic texts for Job. Sample: Job title: OneStream Developer. Experience level: mid. andrew morgan is a rapidl
-2026-05-07 21:43:05,304  INFO      features.semantic  Built 20 semantic texts for Company. Sample: Company: Andrew Morgan. Industry: Management Consulting. Size: small
-2026-05-07 21:43:05,304  INFO      features.semantic  Built 2 semantic texts for Skill_L1. Sample: Technical Competencies (Hard Skills)
-2026-05-07 21:43:05,305  INFO      features.semantic  Built 7 semantic texts for Skill_L2. Sample: Technical Competencies (Hard Skills) -> Programming & Scripting
-2026-05-07 21:43:05,305  INFO      features.semantic  Built 406 semantic texts for Skill_L3. Sample: Skill: Java. Group: Programming & Scripting
-2026-05-07 21:43:05,305  INFO      features.semantic  Built 3 semantic texts for Occupation_L1. Sample: Software Engineering & Architecture
-2026-05-07 21:43:05,305  INFO      features.semantic  Built 8 semantic texts for Occupation_L2. Sample: Software Engineering & Architecture -> Software Developer
-2026-05-07 21:43:05,305  INFO      features.semantic  Built 40 semantic texts for Occupation_L3. Sample: Software Engineering & Architecture -> Software Developer -> Software Architect
-2026-05-07 21:43:05,305  INFO      features.semantic  Built 9 semantic texts for Project. Sample: Project: Graph-based Recommendation Engine. A highly scalable recommendation eng
-2026-05-07 21:43:05,306  INFO      features.semantic  Built 9 semantic texts for Course. Sample: Course: Data Structures and Algorithms. Provider: University Computer Science De
-2026-05-07 21:43:05,306  INFO      features.semantic  Built 9 semantic texts for Diploma. Sample: Diploma: AWS Certified Cloud Practitioner. Issued by Amazon Web Services. Founda
-2026-05-07 21:43:05,306  INFO      features.pipeline  === Embedding with Ollama ===
-2026-05-07 21:43:05,306  INFO      features.pipeline    Embedding 9 Student nodes …
-2026-05-07 21:43:07,764  INFO      features.embedder  Embedded 9 texts total
-2026-05-07 21:43:07,765  INFO      features.pipeline    Student semantic shape: (9, 768)
-2026-05-07 21:43:07,765  INFO      features.pipeline    Embedding 20 Job nodes …
-2026-05-07 21:43:08,353  INFO      features.embedder  Embedded 20 texts total
-2026-05-07 21:43:08,353  INFO      features.pipeline    Job semantic shape: (20, 768)
-2026-05-07 21:43:08,353  INFO      features.pipeline    Embedding 20 Company nodes …
-2026-05-07 21:43:08,456  INFO      features.embedder  Embedded 20 texts total
-2026-05-07 21:43:08,457  INFO      features.pipeline    Company semantic shape: (20, 768)
-2026-05-07 21:43:08,457  INFO      features.pipeline    Embedding 2 Skill_L1 nodes …
-2026-05-07 21:43:08,477  INFO      features.embedder  Embedded 2 texts total
-2026-05-07 21:43:08,477  INFO      features.pipeline    Skill_L1 semantic shape: (2, 768)
-2026-05-07 21:43:08,478  INFO      features.pipeline    Embedding 7 Skill_L2 nodes …
-2026-05-07 21:43:08,525  INFO      features.embedder  Embedded 7 texts total
-2026-05-07 21:43:08,526  INFO      features.pipeline    Skill_L2 semantic shape: (7, 768)
-2026-05-07 21:43:08,526  INFO      features.pipeline    Embedding 406 Skill_L3 nodes …
-2026-05-07 21:43:10,155  INFO      features.embedder    embedded 320 / 406 texts
-2026-05-07 21:43:10,423  INFO      features.embedder  Embedded 406 texts total
-2026-05-07 21:43:10,430  INFO      features.pipeline    Skill_L3 semantic shape: (406, 768)
-2026-05-07 21:43:10,430  INFO      features.pipeline    Embedding 3 Occupation_L1 nodes …
-2026-05-07 21:43:10,457  INFO      features.embedder  Embedded 3 texts total
-2026-05-07 21:43:10,460  INFO      features.pipeline    Occupation_L1 semantic shape: (3, 768)
-2026-05-07 21:43:10,460  INFO      features.pipeline    Embedding 8 Occupation_L2 nodes …
-2026-05-07 21:43:10,513  INFO      features.embedder  Embedded 8 texts total
-2026-05-07 21:43:10,513  INFO      features.pipeline    Occupation_L2 semantic shape: (8, 768)
-2026-05-07 21:43:10,513  INFO      features.pipeline    Embedding 40 Occupation_L3 nodes …
-2026-05-07 21:43:10,726  INFO      features.embedder  Embedded 40 texts total
-2026-05-07 21:43:10,727  INFO      features.pipeline    Occupation_L3 semantic shape: (40, 768)
-2026-05-07 21:43:10,727  INFO      features.pipeline    Embedding 9 Project nodes …
-2026-05-07 21:43:10,788  INFO      features.embedder  Embedded 9 texts total
-2026-05-07 21:43:10,789  INFO      features.pipeline    Project semantic shape: (9, 768)
-2026-05-07 21:43:10,789  INFO      features.pipeline    Embedding 9 Course nodes …
-2026-05-07 21:43:10,849  INFO      features.embedder  Embedded 9 texts total
-2026-05-07 21:43:10,850  INFO      features.pipeline    Course semantic shape: (9, 768)
-2026-05-07 21:43:10,850  INFO      features.pipeline    Embedding 9 Diploma nodes …
-2026-05-07 21:43:10,910  INFO      features.embedder  Embedded 9 texts total
-2026-05-07 21:43:10,911  INFO      features.pipeline    Diploma semantic shape: (9, 768)
-2026-05-07 21:43:10,911  INFO      features.pipeline  === Building structured features ===
-2026-05-07 21:43:10,912  INFO      features.structured  Structured features for Student: (9, 3)
-2026-05-07 21:43:10,913  INFO      features.structured  Structured features for Job: (20, 4)
-2026-05-07 21:43:10,913  INFO      features.structured  Structured features for Company: (20, 1)
-2026-05-07 21:43:10,913  INFO      features.structured  Structured features for Skill_L1: (2, 2)
-2026-05-07 21:43:10,913  INFO      features.structured  Structured features for Skill_L2: (7, 2)
-2026-05-07 21:43:10,913  INFO      features.structured  Structured features for Skill_L3: (406, 2)
-2026-05-07 21:43:10,914  INFO      features.structured  Structured features for Occupation_L1: (3, 2)
-2026-05-07 21:43:10,914  INFO      features.structured  Structured features for Occupation_L2: (8, 2)
-2026-05-07 21:43:10,914  INFO      features.structured  Structured features for Occupation_L3: (40, 2)
-2026-05-07 21:43:10,914  INFO      features.pipeline  === Concatenating feature buckets ===
-2026-05-07 21:43:10,914  INFO      features.pipeline  Student final features: sem(9, 768) + struct(9, 3) -> (9, 771)
-2026-05-07 21:43:10,914  INFO      features.pipeline  Job final features: sem(20, 768) + struct(20, 4) -> (20, 772)
-2026-05-07 21:43:10,915  INFO      features.pipeline  Company final features: sem(20, 768) + struct(20, 1) -> (20, 769)
-2026-05-07 21:43:10,915  INFO      features.pipeline  Skill_L1 final features: sem(2, 768) + struct(2, 2) -> (2, 770)
-2026-05-07 21:43:10,915  INFO      features.pipeline  Skill_L2 final features: sem(7, 768) + struct(7, 2) -> (7, 770)
-2026-05-07 21:43:10,916  INFO      features.pipeline  Skill_L3 final features: sem(406, 768) + struct(406, 2) -> (406, 770)
-2026-05-07 21:43:10,917  INFO      features.pipeline  Occupation_L1 final features: sem(3, 768) + struct(3, 2) -> (3, 770)
-2026-05-07 21:43:10,917  INFO      features.pipeline  Occupation_L2 final features: sem(8, 768) + struct(8, 2) -> (8, 770)
-2026-05-07 21:43:10,917  INFO      features.pipeline  Occupation_L3 final features: sem(40, 768) + struct(40, 2) -> (40, 770)
-2026-05-07 21:43:10,917  INFO      features.pipeline  Project final features: sem(9, 768) + struct(9, 0) -> (9, 768)
-2026-05-07 21:43:10,917  INFO      features.pipeline  Course final features: sem(9, 768) + struct(9, 0) -> (9, 768)
-2026-05-07 21:43:10,918  INFO      features.pipeline  Diploma final features: sem(9, 768) + struct(9, 0) -> (9, 768)
-2026-05-07 21:43:10,918  INFO      __main__  === Building heterogeneous graph ===
-2026-05-07 21:43:10,918  INFO      data.graph_builder  ID maps built for: ['Student', 'Job', 'Company', 'Skill_L1', 'Skill_L2', 'Skill_L3', 'Occupation_L1', 'Occupation_L2', 'Occupation_L3', 'Project', 'Course', 'Diploma']
-2026-05-07 21:43:10,951  INFO      utils.helpers  ------------------------------------------------------------
-2026-05-07 21:43:10,951  INFO      utils.helpers  GRAPH SUMMARY
-2026-05-07 21:43:10,951  INFO      utils.helpers  ------------------------------------------------------------
-2026-05-07 21:43:10,951  INFO      utils.helpers  Total nodes : 542
-2026-05-07 21:43:10,951  INFO      utils.helpers  Total edges : 1157
-2026-05-07 21:43:10,951  INFO      utils.helpers  
-2026-05-07 21:43:10,951  INFO      utils.helpers  Node Type           Count    Feat Dim
-2026-05-07 21:43:10,951  INFO      utils.helpers  ---------------  --------  ----------
-2026-05-07 21:43:10,952  INFO      utils.helpers  Student                 9         771
-2026-05-07 21:43:10,952  INFO      utils.helpers  Job                    20         772
-2026-05-07 21:43:10,952  INFO      utils.helpers  Company                20         769
-2026-05-07 21:43:10,952  INFO      utils.helpers  Skill_L1                2         770
-2026-05-07 21:43:10,952  INFO      utils.helpers  Skill_L2                7         770
-2026-05-07 21:43:10,952  INFO      utils.helpers  Skill_L3              406         770
-2026-05-07 21:43:10,952  INFO      utils.helpers  Occupation_L1           3         770
-2026-05-07 21:43:10,952  INFO      utils.helpers  Occupation_L2           8         770
-2026-05-07 21:43:10,953  INFO      utils.helpers  Occupation_L3          40         770
-2026-05-07 21:43:10,953  INFO      utils.helpers  Project                 9         768
-2026-05-07 21:43:10,953  INFO      utils.helpers  Course                  9         768
-2026-05-07 21:43:10,953  INFO      utils.helpers  Diploma                 9         768
-2026-05-07 21:43:10,953  INFO      utils.helpers  
-2026-05-07 21:43:10,953  INFO      utils.helpers  Relation Type            Count
-2026-05-07 21:43:10,953  INFO      utils.helpers  --------------------  --------
-2026-05-07 21:43:10,953  INFO      utils.helpers  KNOWS                       24
-2026-05-07 21:43:10,953  INFO      utils.helpers  REQUIRES                   589
-2026-05-07 21:43:10,953  INFO      utils.helpers  POSTS                       20
-2026-05-07 21:43:10,954  INFO      utils.helpers  CREATED                      9
-2026-05-07 21:43:10,954  INFO      utils.helpers  BUILT_WITH                  23
-2026-05-07 21:43:10,954  INFO      utils.helpers  COMPLETED                    9
-2026-05-07 21:43:10,954  INFO      utils.helpers  EARNED                       9
-2026-05-07 21:43:10,954  INFO      utils.helpers  CERTIFIES                   13
-2026-05-07 21:43:10,954  INFO      utils.helpers  SKILL_SUBCLASS_L3_L2       406
-2026-05-07 21:43:10,954  INFO      utils.helpers  SKILL_SUBCLASS_L2_L1         7
-2026-05-07 21:43:10,954  INFO      utils.helpers  OCC_SUBCLASS_L3_L2          40
-2026-05-07 21:43:10,954  INFO      utils.helpers  OCC_SUBCLASS_L2_L1           8
-2026-05-07 21:43:10,955  INFO      utils.helpers  ------------------------------------------------------------
-2026-05-07 21:43:10,955  INFO      __main__  === Constructing HeteroGraphSAGE ===
-2026-05-07 21:43:11,040  INFO      __main__  Model parameters: 1017728
-2026-05-07 21:43:11,040  INFO      __main__  === Splitting edges ===
-2026-05-07 21:43:11,045  INFO      __main__  === Training ===
-2026-05-07 21:43:11,049  INFO      training.trainer  Starting training for 500 epochs
-2026-05-07 21:43:11,161  INFO      training.trainer  Epoch   1 | loss 0.7023 | val_loss 0.7125 | val_AUC 0.4963
-2026-05-07 21:43:11,881  INFO      training.trainer  Epoch  10 | loss 0.6871 | val_loss 0.7324 | val_AUC 0.4382
-2026-05-07 21:43:12,715  INFO      training.trainer  Epoch  20 | loss 0.6680 | val_loss 0.7384 | val_AUC 0.4773
-2026-05-07 21:43:13,504  INFO      training.trainer  Epoch  30 | loss 0.6521 | val_loss 0.7626 | val_AUC 0.5041
-2026-05-07 21:43:14,242  INFO      training.trainer  Epoch  40 | loss 0.6414 | val_loss 0.7583 | val_AUC 0.4769
-2026-05-07 21:43:15,016  INFO      training.trainer  Epoch  50 | loss 0.6343 | val_loss 0.7487 | val_AUC 0.5119
-2026-05-07 21:43:15,769  INFO      training.trainer  Epoch  60 | loss 0.6335 | val_loss 0.7451 | val_AUC 0.5064
-2026-05-07 21:43:16,541  INFO      training.trainer  Epoch  70 | loss 0.6211 | val_loss 0.7481 | val_AUC 0.4778
-2026-05-07 21:43:17,351  INFO      training.trainer  Epoch  80 | loss 0.6170 | val_loss 0.7727 | val_AUC 0.5123
-2026-05-07 21:43:18,093  INFO      training.trainer  Epoch  90 | loss 0.6190 | val_loss 0.7786 | val_AUC 0.4920
-2026-05-07 21:43:18,856  INFO      training.trainer  Epoch 100 | loss 0.6123 | val_loss 0.7596 | val_AUC 0.5081
-2026-05-07 21:43:19,625  INFO      training.trainer  Epoch 110 | loss 0.6189 | val_loss 0.7587 | val_AUC 0.5084
-2026-05-07 21:43:20,454  INFO      training.trainer  Epoch 120 | loss 0.6071 | val_loss 0.7252 | val_AUC 0.4966
-2026-05-07 21:43:21,239  INFO      training.trainer  Epoch 130 | loss 0.6127 | val_loss 0.7312 | val_AUC 0.5243
-2026-05-07 21:43:21,326  INFO      training.trainer  Early stopping at epoch 131
-2026-05-07 21:43:21,347  INFO      training.trainer  Test AUC: 0.4751
-2026-05-07 21:43:21,348  INFO      __main__  Training finished in 10.3 s | Test AUC: 0.4751
-2026-05-07 21:43:21,348  INFO      __main__  === Extracting final embeddings ===
-2026-05-07 21:43:21,362  INFO      __main__  Embeddings saved -> outputs/embeddings.pkl
-2026-05-07 21:43:21,362  INFO      __main__  === Writing embeddings to Neo4j ===
-2026-05-07 21:43:21,519  INFO      __main__  === Generating plots ===
-2026-05-07 21:43:21,519  INFO      evaluation.visualizer  === Generating evaluation plots ===
-2026-05-07 21:43:22,229  INFO      evaluation.visualizer  Saved -> outputs/plots\training_curves.png
-2026-05-07 21:43:22,309  INFO      evaluation.visualizer  Running t-SNE on 386 nodes …
-2026-05-07 21:43:24,442  INFO      evaluation.visualizer  Saved -> outputs/plots\tsne_embeddings.png
-2026-05-07 21:43:33,417  INFO      evaluation.visualizer  Running UMAP on 386 nodes …
-2026-05-07 21:43:45,603  INFO      evaluation.visualizer  Saved -> outputs/plots\umap_embeddings.png
-2026-05-07 21:43:45,909  INFO      evaluation.visualizer  Saved -> outputs/plots\cosine_similarity_boxplot.png
-2026-05-07 21:43:46,198  INFO      evaluation.visualizer  Saved -> outputs/plots\embedding_norms.png
-2026-05-07 21:43:46,489  INFO      evaluation.visualizer  Saved -> outputs/plots\edge_counts.png
-2026-05-07 21:43:46,892  INFO      evaluation.visualizer  Saved -> outputs/plots\feature_dims.png
-2026-05-07 21:43:47,279  INFO      evaluation.visualizer  Saved -> outputs/plots\node_counts.png
-2026-05-07 21:43:47,279  INFO      evaluation.visualizer  All plots saved to outputs/plots/
-2026-05-07 21:43:47,279  INFO      __main__  ============================================================
-2026-05-07 21:43:47,280  INFO      __main__  PIPELINE COMPLETE
-2026-05-07 21:43:47,280  INFO      __main__    Test AUC       : 0.4751
-2026-05-07 21:43:47,280  INFO      __main__    Best val AUC   : 0.5430
-2026-05-07 21:43:47,280  INFO      __main__    Epochs run     : 131
-2026-05-07 21:43:47,281  INFO      __main__    Model saved    : outputs/best_model.pt
-2026-05-07 21:43:47,281  INFO      __main__    Embeddings     : outputs/embeddings.pkl
-2026-05-07 21:43:47,281  INFO      __main__    Plots          : outputs/plots/
-2026-05-07 21:43:47,281  INFO      __main__  ============================================================
+2026-05-15 14:59:40,711  INFO      __main__  === Loading data from Neo4j ===
+2026-05-15 14:59:40,711  INFO      data.neo4j_loader  Connected to Neo4j at bolt://localhost:7687
+2026-05-15 14:59:40,768  INFO      data.neo4j_loader  Loaded 150 Student nodes
+2026-05-15 14:59:40,776  INFO      data.neo4j_loader  Loaded 75 Job nodes
+2026-05-15 14:59:40,780  INFO      data.neo4j_loader  Loaded 2 Skill_L1 nodes
+2026-05-15 14:59:40,784  INFO      data.neo4j_loader  Loaded 7 Skill_L2 nodes
+2026-05-15 14:59:40,810  INFO      data.neo4j_loader  Loaded 800 Skill_L3 nodes
+2026-05-15 14:59:40,814  INFO      data.neo4j_loader  Loaded 3 Occupation_L1 nodes
+2026-05-15 14:59:40,818  INFO      data.neo4j_loader  Loaded 9 Occupation_L2 nodes
+2026-05-15 14:59:40,823  INFO      data.neo4j_loader  Loaded 44 Occupation_L3 nodes
+2026-05-15 14:59:40,832  INFO      data.neo4j_loader  Loaded 259 Project nodes
+2026-05-15 14:59:40,843  INFO      data.neo4j_loader  Loaded 254 Course nodes
+2026-05-15 14:59:40,849  INFO      data.neo4j_loader  Loaded 126 Diploma nodes
+2026-05-15 14:59:40,882  INFO      data.neo4j_loader  Loaded 995 KNOWS edges
+2026-05-15 14:59:40,928  INFO      data.neo4j_loader  Loaded 1775 REQUIRES edges
+2026-05-15 14:59:40,937  INFO      data.neo4j_loader  Loaded 259 CREATED edges
+2026-05-15 14:59:40,961  INFO      data.neo4j_loader  Loaded 949 BUILT_WITH edges
+2026-05-15 14:59:40,970  INFO      data.neo4j_loader  Loaded 254 COMPLETED edges
+2026-05-15 14:59:40,976  INFO      data.neo4j_loader  Loaded 126 EARNED edges
+2026-05-15 14:59:40,985  INFO      data.neo4j_loader  Loaded 259 CERTIFIES edges
+2026-05-15 14:59:41,005  INFO      data.neo4j_loader  Loaded 800 SKILL_SUBCLASS_L3_L2 edges
+2026-05-15 14:59:41,009  INFO      data.neo4j_loader  Loaded 7 SKILL_SUBCLASS_L2_L1 edges
+2026-05-15 14:59:41,013  INFO      data.neo4j_loader  Loaded 40 OCC_SUBCLASS_L3_L2 edges
+2026-05-15 14:59:41,016  INFO      data.neo4j_loader  Loaded 8 OCC_SUBCLASS_L2_L1 edges
+2026-05-15 14:59:41,017  INFO      __main__  === Building feature tensors ===
+2026-05-15 14:59:41,017  INFO      features.pipeline  === Building semantic texts ===
+2026-05-15 14:59:41,017  INFO      features.semantic  Built 150 semantic texts for Student. Sample: Student named Nora Blaga. studying Computer Science. Bachelor of Science degree
+2026-05-15 14:59:41,018  INFO      features.semantic  Built 75 semantic texts for Job. Sample: Job title: Senior Mobile Software Developer. Experience level: senior. Senior Mo
+2026-05-15 14:59:41,018  INFO      features.semantic  Built 2 semantic texts for Skill_L1. Sample: Technical Competencies (Hard Skills)
+2026-05-15 14:59:41,018  INFO      features.semantic  Built 7 semantic texts for Skill_L2. Sample: Technical Competencies (Hard Skills) -> Programming & Scripting
+2026-05-15 14:59:41,018  INFO      features.semantic  Built 800 semantic texts for Skill_L3. Sample: Skill: Android. Group: Frameworks & Libraries
+2026-05-15 14:59:41,018  INFO      features.semantic  Built 3 semantic texts for Occupation_L1. Sample: Software Engineering & Architecture
+2026-05-15 14:59:41,018  INFO      features.semantic  Built 9 semantic texts for Occupation_L2. Sample: Web Developer
+2026-05-15 14:59:41,019  INFO      features.semantic  Built 44 semantic texts for Occupation_L3. Sample: Software Engineering & Architecture -> Software Developer -> Software Architect
+2026-05-15 14:59:41,019  INFO      features.semantic  Built 259 semantic texts for Project. Sample: Project: Microservices E-commerce Backend. A set of loosely coupled microservice
+2026-05-15 14:59:41,019  INFO      features.semantic  Built 254 semantic texts for Course. Sample: Course: Data Structures and Algorithms. Provider: University Computer Science De
+2026-05-15 14:59:41,020  INFO      features.semantic  Built 126 semantic texts for Diploma. Sample: Diploma: AWS Certified Cloud Practitioner. Issued by Amazon Web Services. Founda
+2026-05-15 14:59:41,020  INFO      features.pipeline  === Embedding with Ollama ===
+2026-05-15 14:59:41,020  INFO      features.pipeline    Embedding 150 Student nodes …
+2026-05-15 14:59:48,280  INFO      features.embedder  Embedded 150 texts total
+2026-05-15 14:59:48,284  INFO      features.pipeline    Student semantic shape: (150, 768)
+2026-05-15 14:59:48,284  INFO      features.pipeline    Embedding 75 Job nodes …
+2026-05-15 15:00:03,430  INFO      features.embedder  Embedded 75 texts total
+2026-05-15 15:00:03,433  INFO      features.pipeline    Job semantic shape: (75, 768)
+2026-05-15 15:00:03,433  INFO      features.pipeline    Embedding 2 Skill_L1 nodes …
+2026-05-15 15:00:03,570  INFO      features.embedder  Embedded 2 texts total
+2026-05-15 15:00:03,570  INFO      features.pipeline    Skill_L1 semantic shape: (2, 768)
+2026-05-15 15:00:03,570  INFO      features.pipeline    Embedding 7 Skill_L2 nodes …
+2026-05-15 15:00:03,868  INFO      features.embedder  Embedded 7 texts total
+2026-05-15 15:00:03,868  INFO      features.pipeline    Skill_L2 semantic shape: (7, 768)
+2026-05-15 15:00:03,868  INFO      features.pipeline    Embedding 800 Skill_L3 nodes …
+2026-05-15 15:00:16,181  INFO      features.embedder    embedded 320 / 800 texts
+2026-05-15 15:00:27,329  INFO      features.embedder    embedded 640 / 800 texts
+2026-05-15 15:00:31,837  INFO      features.embedder  Embedded 800 texts total
+2026-05-15 15:00:31,857  INFO      features.pipeline    Skill_L3 semantic shape: (800, 768)
+2026-05-15 15:00:31,857  INFO      features.pipeline    Embedding 3 Occupation_L1 nodes …
+2026-05-15 15:00:32,028  INFO      features.embedder  Embedded 3 texts total
+2026-05-15 15:00:32,035  INFO      features.pipeline    Occupation_L1 semantic shape: (3, 768)
+2026-05-15 15:00:32,036  INFO      features.pipeline    Embedding 9 Occupation_L2 nodes …
+2026-05-15 15:00:32,408  INFO      features.embedder  Embedded 9 texts total
+2026-05-15 15:00:32,409  INFO      features.pipeline    Occupation_L2 semantic shape: (9, 768)
+2026-05-15 15:00:32,409  INFO      features.pipeline    Embedding 44 Occupation_L3 nodes …
+2026-05-15 15:00:34,083  INFO      features.embedder  Embedded 44 texts total
+2026-05-15 15:00:34,084  INFO      features.pipeline    Occupation_L3 semantic shape: (44, 768)
+2026-05-15 15:00:34,084  INFO      features.pipeline    Embedding 259 Project nodes …
+2026-05-15 15:00:44,945  INFO      features.embedder  Embedded 259 texts total
+2026-05-15 15:00:44,952  INFO      features.pipeline    Project semantic shape: (259, 768)
+2026-05-15 15:00:44,953  INFO      features.pipeline    Embedding 254 Course nodes …
+2026-05-15 15:00:55,621  INFO      features.embedder  Embedded 254 texts total
+2026-05-15 15:00:55,627  INFO      features.pipeline    Course semantic shape: (254, 768)
+2026-05-15 15:00:55,627  INFO      features.pipeline    Embedding 126 Diploma nodes …
+2026-05-15 15:01:00,666  INFO      features.embedder  Embedded 126 texts total
+2026-05-15 15:01:00,669  INFO      features.pipeline    Diploma semantic shape: (126, 768)
+2026-05-15 15:01:00,670  INFO      features.pipeline  === Building structured features ===
+2026-05-15 15:01:00,672  INFO      features.structured  Structured features for Student: (150, 3)
+2026-05-15 15:01:00,673  INFO      features.structured  Structured features for Job: (75, 4)
+2026-05-15 15:01:00,673  INFO      features.structured  Structured features for Skill_L1: (2, 2)
+2026-05-15 15:01:00,673  INFO      features.structured  Structured features for Skill_L2: (7, 2)
+2026-05-15 15:01:00,674  INFO      features.structured  Structured features for Skill_L3: (800, 2)
+2026-05-15 15:01:00,674  INFO      features.structured  Structured features for Occupation_L1: (3, 2)
+2026-05-15 15:01:00,674  INFO      features.structured  Structured features for Occupation_L2: (9, 2)
+2026-05-15 15:01:00,674  INFO      features.structured  Structured features for Occupation_L3: (44, 2)
+2026-05-15 15:01:00,674  INFO      features.pipeline  === Concatenating feature buckets ===
+2026-05-15 15:01:00,686  INFO      features.pipeline  Student final features: sem(150, 768) + struct(150, 3) -> (150, 771)
+2026-05-15 15:01:00,686  INFO      features.pipeline  Job final features: sem(75, 768) + struct(75, 4) -> (75, 772)
+2026-05-15 15:01:00,687  INFO      features.pipeline  Skill_L1 final features: sem(2, 768) + struct(2, 2) -> (2, 770)
+2026-05-15 15:01:00,687  INFO      features.pipeline  Skill_L2 final features: sem(7, 768) + struct(7, 2) -> (7, 770)
+2026-05-15 15:01:00,688  INFO      features.pipeline  Skill_L3 final features: sem(800, 768) + struct(800, 2) -> (800, 770)
+2026-05-15 15:01:00,688  INFO      features.pipeline  Occupation_L1 final features: sem(3, 768) + struct(3, 2) -> (3, 770)
+2026-05-15 15:01:00,688  INFO      features.pipeline  Occupation_L2 final features: sem(9, 768) + struct(9, 2) -> (9, 770)
+2026-05-15 15:01:00,689  INFO      features.pipeline  Occupation_L3 final features: sem(44, 768) + struct(44, 2) -> (44, 770)
+2026-05-15 15:01:00,689  INFO      features.pipeline  Project final features: sem(259, 768) + struct(259, 0) -> (259, 768)
+2026-05-15 15:01:00,689  INFO      features.pipeline  Course final features: sem(254, 768) + struct(254, 0) -> (254, 768)
+2026-05-15 15:01:00,690  INFO      features.pipeline  Diploma final features: sem(126, 768) + struct(126, 0) -> (126, 768)
+2026-05-15 15:01:00,690  INFO      __main__  === Building heterogeneous graph ===
+2026-05-15 15:01:00,691  INFO      data.graph_builder  ID maps built for: ['Student', 'Job', 'Skill_L1', 'Skill_L2', 'Skill_L3', 'Occupation_L1', 'Occupation_L2', 'Occupation_L3', 'Project', 'Course', 'Diploma']
+2026-05-15 15:01:00,744  INFO      utils.helpers  ------------------------------------------------------------
+2026-05-15 15:01:00,745  INFO      utils.helpers  GRAPH SUMMARY
+2026-05-15 15:01:00,745  INFO      utils.helpers  ------------------------------------------------------------
+2026-05-15 15:01:00,745  INFO      utils.helpers  Total nodes : 1729
+2026-05-15 15:01:00,745  INFO      utils.helpers  Total edges : 5472
+2026-05-15 15:01:00,745  INFO      utils.helpers  
+2026-05-15 15:01:00,745  INFO      utils.helpers  Node Type           Count    Feat Dim
+2026-05-15 15:01:00,745  INFO      utils.helpers  ---------------  --------  ----------
+2026-05-15 15:01:00,745  INFO      utils.helpers  Student               150         771
+2026-05-15 15:01:00,745  INFO      utils.helpers  Job                    75         772
+2026-05-15 15:01:00,746  INFO      utils.helpers  Skill_L1                2         770
+2026-05-15 15:01:00,746  INFO      utils.helpers  Skill_L2                7         770
+2026-05-15 15:01:00,746  INFO      utils.helpers  Skill_L3              800         770
+2026-05-15 15:01:00,746  INFO      utils.helpers  Occupation_L1           3         770
+2026-05-15 15:01:00,746  INFO      utils.helpers  Occupation_L2           9         770
+2026-05-15 15:01:00,746  INFO      utils.helpers  Occupation_L3          44         770
+2026-05-15 15:01:00,746  INFO      utils.helpers  Project               259         768
+2026-05-15 15:01:00,746  INFO      utils.helpers  Course                254         768
+2026-05-15 15:01:00,746  INFO      utils.helpers  Diploma               126         768
+2026-05-15 15:01:00,747  INFO      utils.helpers  
+2026-05-15 15:01:00,747  INFO      utils.helpers  Relation Type            Count
+2026-05-15 15:01:00,747  INFO      utils.helpers  --------------------  --------
+2026-05-15 15:01:00,747  INFO      utils.helpers  KNOWS                      995
+2026-05-15 15:01:00,747  INFO      utils.helpers  REQUIRES                  1775
+2026-05-15 15:01:00,747  INFO      utils.helpers  CREATED                    259
+2026-05-15 15:01:00,747  INFO      utils.helpers  BUILT_WITH                 949
+2026-05-15 15:01:00,747  INFO      utils.helpers  COMPLETED                  254
+2026-05-15 15:01:00,747  INFO      utils.helpers  EARNED                     126
+2026-05-15 15:01:00,748  INFO      utils.helpers  CERTIFIES                  259
+2026-05-15 15:01:00,748  INFO      utils.helpers  SKILL_SUBCLASS_L3_L2       800
+2026-05-15 15:01:00,748  INFO      utils.helpers  SKILL_SUBCLASS_L2_L1         7
+2026-05-15 15:01:00,748  INFO      utils.helpers  OCC_SUBCLASS_L3_L2          40
+2026-05-15 15:01:00,748  INFO      utils.helpers  OCC_SUBCLASS_L2_L1           8
+2026-05-15 15:01:00,748  INFO      utils.helpers  ------------------------------------------------------------
+2026-05-15 15:01:00,748  INFO      __main__  === Constructing HeteroGraphSAGE ===
+2026-05-15 15:01:00,858  INFO      __main__  Model parameters: 932960
+2026-05-15 15:01:00,858  INFO      __main__  === Splitting edges ===
+2026-05-15 15:01:00,877  INFO      __main__  === Training ===
+2026-05-15 15:01:00,881  INFO      training.trainer  Starting training for 500 epochs
+2026-05-15 15:01:01,095  INFO      training.trainer  Epoch   1 | loss 0.6930 | val_loss 0.6910 | val_AUC 0.5440
+2026-05-15 15:01:02,147  INFO      training.trainer  Epoch  10 | loss 0.6742 | val_loss 0.6614 | val_AUC 0.7307
+2026-05-15 15:01:03,198  INFO      training.trainer  Epoch  20 | loss 0.6464 | val_loss 0.6671 | val_AUC 0.7489
+2026-05-15 15:01:04,129  INFO      training.trainer  Epoch  30 | loss 0.6332 | val_loss 0.6861 | val_AUC 0.7466
+2026-05-15 15:01:05,049  INFO      training.trainer  Epoch  40 | loss 0.6155 | val_loss 0.6893 | val_AUC 0.7357
+2026-05-15 15:01:05,936  INFO      training.trainer  Epoch  50 | loss 0.6144 | val_loss 0.7193 | val_AUC 0.7280
+2026-05-15 15:01:06,474  INFO      training.trainer  Early stopping at epoch 56
+2026-05-15 15:01:06,503  INFO      training.trainer  Test AUC: 0.7866
+2026-05-15 15:01:06,505  INFO      __main__  Training finished in 5.6 s | Test AUC: 0.7866
+2026-05-15 15:01:06,505  INFO      __main__  === Extracting final embeddings ===
+2026-05-15 15:01:06,526  INFO      __main__  Embeddings saved -> outputs/embeddings.pkl
+2026-05-15 15:01:06,526  INFO      __main__  === Writing embeddings to Neo4j ===
+2026-05-15 15:01:07,053  INFO      __main__  === Generating plots ===
+2026-05-15 15:01:07,053  INFO      evaluation.visualizer  === Generating evaluation plots ===
+2026-05-15 15:01:07,873  INFO      evaluation.visualizer  Saved -> outputs/plots\training_curves.png
+2026-05-15 15:01:07,989  INFO      evaluation.visualizer  Running t-SNE on 1201 nodes …
+2026-05-15 15:01:12,127  INFO      evaluation.visualizer  Saved -> outputs/plots\tsne_embeddings.png
+2026-05-15 15:01:21,382  INFO      evaluation.visualizer  Running UMAP on 1201 nodes …
+2026-05-15 15:01:35,627  INFO      evaluation.visualizer  Saved -> outputs/plots\umap_embeddings.png
+2026-05-15 15:01:35,894  INFO      evaluation.visualizer  Saved -> outputs/plots\cosine_similarity_boxplot.png
+2026-05-15 15:01:36,127  INFO      evaluation.visualizer  Saved -> outputs/plots\embedding_norms.png
+2026-05-15 15:01:36,328  INFO      evaluation.visualizer  Saved -> outputs/plots\edge_counts.png
+2026-05-15 15:01:36,532  INFO      evaluation.visualizer  Saved -> outputs/plots\feature_dims.png
+2026-05-15 15:01:36,741  INFO      evaluation.visualizer  Saved -> outputs/plots\node_counts.png
+2026-05-15 15:01:36,742  INFO      evaluation.visualizer  All plots saved to outputs/plots/
+2026-05-15 15:01:36,742  INFO      __main__  ============================================================
+2026-05-15 15:01:36,742  INFO      __main__  PIPELINE COMPLETE
+2026-05-15 15:01:36,742  INFO      __main__    Test AUC       : 0.7866
+2026-05-15 15:01:36,742  INFO      __main__    Best val AUC   : 0.7693
+2026-05-15 15:01:36,742  INFO      __main__    Epochs run     : 56
+2026-05-15 15:01:36,742  INFO      __main__    Model saved    : outputs/best_model.pt
+2026-05-15 15:01:36,743  INFO      __main__    Embeddings     : outputs/embeddings.pkl
+2026-05-15 15:01:36,743  INFO      __main__    Plots          : outputs/plots/
+2026-05-15 15:01:36,743  INFO      __main__  ============================================================

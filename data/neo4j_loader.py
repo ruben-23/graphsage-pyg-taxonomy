@@ -298,14 +298,14 @@ _NODE_QUERIES: Dict[str, str] = {
                j.remote            AS remote,
                j.location          AS location
     """,
-    "Company": """
-        MATCH (c:Company)
-        RETURN c.company_id  AS company_id,
-               c.name        AS name,
-               c.industry    AS industry,
-               c.location    AS location,
-               c.size        AS size
-    """,
+    # "Company": """
+    #     MATCH (c:Company)
+    #     RETURN c.company_id  AS company_id,
+    #            c.name        AS name,
+    #            c.industry    AS industry,
+    #            c.location    AS location,
+    #            c.size        AS size
+    # """,
     # ── Skills (one query per layer) ──────────────────────────────────────────
     "Skill_L1": """
         MATCH (sc:Skill {layer: 1})
@@ -415,13 +415,13 @@ _REL_QUERIES: Dict[str, Tuple[str, str, str]] = {
                r.min_proficiency AS level, r.importance AS importance
         """,
     ),
-    "POSTS": (
-        "Company", "Job",
-        """
-        MATCH (c:Company)-[:POSTS]->(j:Job)
-        RETURN c.company_id AS src, j.job_id AS dst
-        """,
-    ),
+    # "POSTS": (
+    #     "Company", "Job",
+    #     """
+    #     MATCH (c:Company)-[:POSTS]->(j:Job)
+    #     RETURN c.company_id AS src, j.job_id AS dst
+    #     """,
+    # ),
     "CREATED": (
         "Student", "Project",
         """

@@ -87,14 +87,14 @@ NEO4J_PASSWORD = "Test1234"
 
 # ── Ollama ───────────────────────────────────────────────────────────────────
 OLLAMA_BASE_URL   = "http://localhost:11434"
-OLLAMA_MODEL      = "nomic-embed-text"
+OLLAMA_MODEL      = "qwen3-embedding:8b"
 EMBEDDING_DIM     = 768          # nomic-embed-text output size
 
 # ── Feature dimensions ───────────────────────────────────────────────────────
 STRUCTURED_DIM: dict[str, int] = {
     "Student":      3,   # graduation_year, current_year_of_study (normalised), degree_level_enc
     "Job":          4,   # salary (norm), remote, experience_level_enc, job_type_enc
-    "Company":      1,   # size_enc
+    # "Company":      1,   # size_enc
     "Skill_L1":     2,   # layer_norm (=1/3), type_enc
     "Skill_L2":     2,   # layer_norm (=2/3), type_enc
     "Skill_L3":     2,   # layer_norm (=3/3), type_enc
@@ -121,7 +121,8 @@ class GraphSAGEConfig:
     aggregator:        str   = "mean"       # mean | lstm | max
     # Which node types to produce embeddings for
     target_node_types: List[str] = field(default_factory=lambda: [
-        "Student", "Job", "Company",
+        "Student", "Job", 
+        # "Company",
         "Skill_L1", "Skill_L2", "Skill_L3",
         "Occupation_L1", "Occupation_L2", "Occupation_L3",
         "Project", "Course", "Diploma",
@@ -137,7 +138,7 @@ class TrainingConfig:
     val_ratio:     float = 0.15
     test_ratio:    float = 0.15
     batch_size:    int   = 32
-    num_neighbors: List[int] = field(default_factory=lambda: [10, 10])
+    num_neighbors: List[int] = field(default_factory=lambda: [4, 3])
     patience:      int   = 40          # early-stopping
     seed:          int   = 42
     device:        str   = "cpu"       # "cuda" if available
