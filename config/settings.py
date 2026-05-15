@@ -166,14 +166,14 @@ NEO4J_PASSWORD = "Test1234"
 
 # ── Ollama ───────────────────────────────────────────────────────────────────
 OLLAMA_BASE_URL   = "http://localhost:11434"
-OLLAMA_MODEL      = "nomic-embed-text"
+OLLAMA_MODEL      = "qwen3-embedding:8b"
 EMBEDDING_DIM     = 768          # nomic-embed-text output size
 
 # ── Feature dimensions ───────────────────────────────────────────────────────
 STRUCTURED_DIM: dict[str, int] = {
     "Student":      3,   # graduation_year, current_year_of_study (normalised), degree_level_enc
     "Job":          4,   # salary (norm), remote, experience_level_enc, job_type_enc
-    "Company":      1,   # size_enc
+    # "Company":      1,   # size_enc
     "Skill_L1":     2,   # layer_norm (=1/3), type_enc
     "Skill_L2":     2,   # layer_norm (=2/3), type_enc
     "Skill_L3":     2,   # layer_norm (=3/3), type_enc
@@ -205,12 +205,12 @@ class GraphSAGEConfig:
     hidden_channels:     int   = 32
     out_channels:        int   = 16
     num_layers:          int   = 2
-    dropout:             float = 0.6
+    dropout:             float = 0.5
     aggregator:          str   = "mean"       # mean | lstm | max
     # Structured features are projected from their raw dim to this size
     # before being concatenated with the semantic embedding.
     # Set to 0 to disable projection and concatenate raw structured features.
-    structured_proj_dim: int   = 64
+    structured_proj_dim: int   = 16
     # Which node types to produce embeddings for
     target_node_types: List[str] = field(default_factory=lambda: [
         "Student", "Job", "Company",
@@ -225,12 +225,12 @@ class GraphSAGEConfig:
 class TrainingConfig:
     epochs:        int   = 200
     lr:            float = 5e-4
-    weight_decay:  float = 5e-4
+    weight_decay:  float = 1e-3
     val_ratio:     float = 0.15
     test_ratio:    float = 0.15
     batch_size:    int   = 32
     num_neighbors: List[int] = field(default_factory=lambda: [4, 3])
-    patience:      int   = 100          # early-stopping
+    patience:      int   = 50          # early-stopping
     seed:          int   = 42
     device:        str   = "cpu"       # "cuda" if available
 
